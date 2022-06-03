@@ -15,6 +15,7 @@ public class Rutinas {
 
     public Rutinas() {
         this.pila1 = null;
+
     }
 
     public boolean vacio() {
@@ -25,11 +26,11 @@ public class Rutinas {
         }
     }
 
+    //----------------------Agrega los valores a las pilas
     public void agregar() {
-        Datos d = new Datos();
-        d.setNum(Integer.parseInt(JOptionPane.showInputDialog("Ingrese un valor")));
+        int d = (Integer.parseInt(JOptionPane.showInputDialog("Ingrese un valor")));
         Pila aux = new Pila();
-        aux.setDatos(d);
+        aux.setDato(d);
         if (vacio()) {
             pila1 = aux;
         } else {
@@ -38,44 +39,67 @@ public class Rutinas {
         }
     }
 
+//----------------------Busca el valor a en la pila y retorna un true si es verdadero
     public boolean encuentra(int num) {
         Pila aux = pila1;
         int n;
         boolean res = false;
         if (!vacio()) {
-            while (aux != null) {
-                n = aux.getDatos().getNum();
+            while (aux != null && res != true) {
+                n = aux.getDato();
                 if (n == num) {
                     res = true;
                 }
+                aux = aux.getSiguente();
             }
+            //solo para validad la informacion----------------------------------
+            //if (res) {
+            //   JOptionPane.showMessageDialog(null, "El valor " + num + " si se encuentra en la pila \n\n");
+            //
+            //} else {
+            //    JOptionPane.showMessageDialog(null, "El valor " + num + " no se encuentra en la pila \n\n");
+            //}
         }
-        if(res  = false){
-            JOptionPane.showMessageDialog(null, "No se encuentra el valor " + num);
-        }
+
         return res;
     }
+//--------el punto es guardar los datos en auxiliar hasta que encuentre el numero y luego devolverlos a la pila excepto el encontrado 
+//              aux = null elimina= false 4->3->2->1    num   
 
     public void extrae(int num) {
         Pila aux = new Pila();
-        Datos d = new Datos();
+        aux = null;
+        boolean elimina = false;
         int n;
-        if (!vacio()) {
-            n = pila1.getDatos().getNum();
-            if (n != num) {
-                d.setNum(n);
-                aux.setDatos(d);
-                aux.getSiguente();
-                pila1.getSiguente();
-            } else {
-                do {
-                    n = aux.getDatos().getNum();
-                    d.setNum(n);
-                    aux.getSiguente();
-                    pila1.setDatos(d);
-                    pila1.getSiguente();
-                } while (aux != null);
+        if (encuentra(num)) {
+            if (!vacio()) {
+                while (pila1.getDato() != num) {
+                    if (aux == null) {
+                        aux = pila1;
+                    } else {
+                        aux.setSiguente(pila1);
+                    }
+                    System.out.println(aux.getDato()); 
+                    pila1=pila1.getSiguente();
+                }
+                
+                 
+                
             }
+            if (vacio()) {
+                while (aux != null) {
+                    if (pila1 == null) {
+                        pila1=aux;
+                        
+                    }else{
+                        pila1.setSiguente(aux);
+                        aux=aux.getSiguente();
+                    }
+                    System.out.println(aux.getDato());
+                    
+                }
+            }
+            toString();
         }
 
     }
@@ -84,13 +108,13 @@ public class Rutinas {
     public String toString() {
         String s = "";
         Pila aux = pila1;
-        if(!vacio()){
-            while(aux!=null){
-                s += aux.getDatos().getNum()+ " \n";
-                aux=aux.getSiguente();            
+        if (!vacio()) {
+            while (aux != null) {
+                s += aux.getDato() + " \n";
+                aux = aux.getSiguente();
             }
             JOptionPane.showMessageDialog(null, "El contenido de la pila es \n" + s);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Pila vacia");
         }
         return s;

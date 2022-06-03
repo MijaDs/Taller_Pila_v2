@@ -8,26 +8,15 @@
  * @author mija2
  */
 public class Pila {
-    private Datos datos;
+    private int dato;
     private Pila siguente;
     
     public Pila(){
         this.siguente=null;
+        this.dato=0;
     }
 
-    /**
-     * @return the datos
-     */
-    public Datos getDatos() {
-        return datos;
-    }
 
-    /**
-     * @param datos the datos to set
-     */
-    public void setDatos(Datos datos) {
-        this.datos = datos;
-    }
 
     /**
      * @return the siguente
@@ -41,6 +30,20 @@ public class Pila {
      */
     public void setSiguente(Pila siguente) {
         this.siguente = siguente;
+    }
+
+    /**
+     * @return the dato
+     */
+    public int getDato() {
+        return dato;
+    }
+
+    /**
+     * @param dato the dato to set
+     */
+    public void setDato(int dato) {
+        this.dato = dato;
     }
     
 }
